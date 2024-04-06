@@ -2,42 +2,43 @@
 
 {% block content %}
 
-<form method="POST" action="{% url 'quoteapp:author' %}">
+<form method="POST" action="{% url 'quoteapp:author' %}" accept-charset="utf-8">
     {% csrf_token %}
-    <div style="padding: 10px">
-        <label> Fullname:
+
+    <div class="row">
+        <div class="form-group col-xs-3">
+            <label for="username">Fullname:</label>
             {{ form.fullname }}
-        </label>
-        <span>{{ form.errors.fullname }}</span>
+            <span>{{ form.errors.fullname }}</span>
+        </div>
     </div>
 
 
-    <div style="padding: 10px">
-        <label> Born:
+    <div class="row">
+        <div class="form-group col-xs-3">
+            <label for="username">Born data:</label>
             {{ form.born_date }}
-        </label>
-        <span>{{ form.errors.born_date }}</span>
+            <span>{{ form.errors.born_date }}</span>
+        </div>
     </div>
 
-
-    <div style="padding: 10px">
-        <label> Born location:
+    <div class="row">
+        <div class="form-group col-xs-3">
+            <label for="username">Born location:</label>
             {{ form.born_location }}
-        </label>
-        <span>{{ form.errors.born_location }}</span>
+            <span>{{ form.errors.born_location }}</span>
+        </div>
     </div>
 
-    <div style="padding: 10px">
-        <label> Description:
+    <div class="row">
+        <div class="form-group col-xs-3">
+            <label for="username">Description:</label>
             {{ form.description }}
-        </label>
-        <span>{{ form.errors.description }}</span>
+            <span>{{ form.errors.description }}</span>
+        </div>
     </div>
 
-
-    <div class="grid">
-        <button type="submit">Submit</button>
-        <button type="reset" class="secondary">Reset</button>
-    </div>
+    <input type="submit"  value="Add" class="btn btn-primary" />
+    
 </form>
 {% endblock %}

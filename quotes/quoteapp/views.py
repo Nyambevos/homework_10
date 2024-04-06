@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
 from .forms import AuthorForm, TagForm, QuoteForm
 from .models import Author, Tag, Quote
@@ -15,6 +16,7 @@ def main(request):
     
     return render(request, 'quoteapp/index.html', {'page_obj': page_obj})
 
+@login_required
 def author(request):
     if request.method == 'POST':
         form = AuthorForm(request.POST)
@@ -25,7 +27,8 @@ def author(request):
             return render(request, 'quoteapp/author.html', {'form': form})
     else:
         return render(request, 'quoteapp/author.html', {'form': AuthorForm()})
-    
+
+@login_required  
 def tag(request):
     if request.method == 'POST':
         form = TagForm(request.POST)
@@ -37,6 +40,7 @@ def tag(request):
 
     return render(request, 'quoteapp/tag.html', {'form': TagForm()})
 
+@login_required
 def quote(request):
     authors = Author.objects.all()
     tags = Tag.objects.all()

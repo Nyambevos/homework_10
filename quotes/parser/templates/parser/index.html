@@ -2,8 +2,6 @@
 
 {% block content %}
 
-<li class="btn btn-primary">
-    <a href="{% url 'parser:run' %}">Click this button to start parsing data from the site "quotes.toscrape.com"</a>
-</li>
+<a href="{% url 'parser:run' %}" class="btn btn-primary">Click this button to start parsing data from the site "quotes.toscrape.com"</a>
 
 {% endblock %}

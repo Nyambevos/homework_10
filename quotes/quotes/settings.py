@@ -9,8 +9,18 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import configparser
 from pathlib import Path
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+DB_ENGINE = config.get('DB', 'ENGINE')
+DB_NAME = config.get('DB', 'NAME')
+DB_USER = config.get('DB', 'USER')
+DB_PASSWORD = config.get('DB', 'PASSWORD')
+DB_HOST = config.get('DB', 'HOST')
+DB_PORT = config.get('DB', 'PORT')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -79,15 +89,14 @@ WSGI_APPLICATION = 'quotes.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'Pwd123456',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'ENGINE': DB_ENGINE,
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
     }
 }
-
 
 
 # Password validation

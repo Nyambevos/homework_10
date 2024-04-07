@@ -75,7 +75,7 @@ def quotes_by_tag(request, tag):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    return render(request, 'quoteapp/index.html', {'page_obj': page_obj, 'top_tags': get_top_tags()})
+    return render(request, 'quoteapp/index.html', {'page_obj': page_obj, 'top_tags': get_top_tags(), 'tag': tag})
 
 def get_top_tags():
     top_tags_list = []

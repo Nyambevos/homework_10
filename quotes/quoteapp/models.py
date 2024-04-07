@@ -13,7 +13,7 @@ class Author(models.Model):
         return f"{self.fullname}"
     
 class Tag(models.Model):
-    name = models.CharField(max_length=25, null=False, unique=True)
+    name = models.CharField(max_length=50, null=False, unique=True)
 
     def __str__(self):
         return f"{self.name}"

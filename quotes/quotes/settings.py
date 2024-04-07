@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'quoteapp',
     'users',
+    'parser',
 ]
 
 MIDDLEWARE = [

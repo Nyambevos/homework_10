@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 
 from .forms import AuthorForm, TagForm, QuoteForm
 from .models import Author, Tag, Quote
@@ -9,12 +10,14 @@ from .models import Author, Tag, Quote
 
 def main(request):
     quotes_list = list(Quote.objects.select_related('author'))
-    paginator = Paginator(quotes_list, 2)
+    if quotes_list:
+        paginator = Paginator(quotes_list, 10)
 
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    
-    return render(request, 'quoteapp/index.html', {'page_obj': page_obj})
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'quoteapp/index.html', {'page_obj': page_obj, 'top_tags': get_top_tags()})
+    else:
+        return redirect(to='parser:main')
 
 @login_required
 def author(request):
@@ -67,9 +70,17 @@ def detail_author(request, slug_author):
 
 def quotes_by_tag(request, tag):
     quotes_list = list(Quote.objects.filter(tags__name=tag).select_related('author'))
-    paginator = Paginator(quotes_list, 2)
+    paginator = Paginator(quotes_list, 10)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    return render(request, 'quoteapp/index.html', {'page_obj': page_obj})
+    return render(request, 'quoteapp/index.html', {'page_obj': page_obj, 'top_tags': get_top_tags()})
+
+def get_top_tags():
+    top_tags_list = []
+    top_tags = Quote.objects.values('tags').annotate(count=Count('tags')).order_by('-count')[:10]
+    for item in top_tags:
+        tag = Tag.objects.get(id=item['tags'])
+        top_tags_list.append(tag.name)
+    return top_tags_list

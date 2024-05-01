@@ -6,7 +6,7 @@ class Author(models.Model):
     fullname = models.CharField(max_length=50, null=False, unique=True)
     born_date = models.CharField(max_length=30)
     born_location = models.CharField(max_length=80)
-    description = models.CharField(null=False)
+    description = models.CharField(max_length=20000, null=False)
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
 
     def __str__(self):

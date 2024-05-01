@@ -27,6 +27,8 @@
                         &nbsp;
                         <a href="{% url 'quoteapp:author' %}">New author</a>
                         &nbsp;
+                        <a href="{% url 'users:profile' %}" role="button">Profile</a>
+                        &nbsp;
                         <a href="{% url 'users:logout' %}">Logout</a>
                         {% else %}
                         <a href="{% url 'users:signup' %}">Sign up</a>
